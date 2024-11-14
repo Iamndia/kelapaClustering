@@ -4,7 +4,7 @@ st.set_page_config(
     page_title="Kelapa Sulbar",
 )
 
-st.title("Selamat Datang di Clustering Kelapa Sulawesi Barat")
+st.title("Selamat Datang di Aplikasi Potensi Kelapa Sulawesi Barat")
 # Custom CSS untuk mengubah warna latar belakang
 st.markdown(
     """
