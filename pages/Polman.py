@@ -87,6 +87,18 @@ st.markdown(
     [data-testid="stSidebarContent"] {
     background-color: #020249B9;
     }
+     /* Menyembunyikan header */ 
+    header.css-1v3fvcr { 
+    display: none; 
+    } 
+    /* Menyembunyikan footer */ 
+    footer.css-1544g2n { 
+    display: none; 
+    } 
+    /* Menyembunyikan tombol hamburger di pojok kanan atas */ 
+    .css-6qob1r { 
+    display: none; 
+    }
     </style>
     """,
     unsafe_allow_html=True
