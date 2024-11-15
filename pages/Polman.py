@@ -10,6 +10,23 @@ from streamlit_folium import st_folium
 
 st.title("Kelapa Polewali Mandar")
 
+# Buat menu kustom di sidebar
+st.sidebar.title("Kelapa Sulbar")
+st.sidebar.page_link("Halamanutama.py", label="Halamana Utama")
+st.sidebar.page_link("pages/Majene.py", label="Kelapa Majene 2023")
+st.sidebar.page_link("pages/majene22.py", label="Kelapa Majene 2022")
+st.sidebar.page_link("pages/majene21.py", label="Kelapa Majene 2021")
+st.sidebar.page_link("pages/majene20.py", label="Kelapa Majene 2020")
+st.sidebar.page_link("pages/majene19.py", label="Kelapa Majene 2019")
+st.sidebar.page_link("pages/majene18.py", label="Kelapa Majene 2018")
+st.sidebar.page_link("pages/Sulbar.py", label="Kelapa Sulawesi Barat 2023")
+st.sidebar.page_link("pages/Sulbar22.py", label="Kelapa Sulawesi Barat 2022")
+st.sidebar.page_link("pages/Sulbar21.py", label="Kelapa Sulawesi Barat 2021")
+st.sidebar.page_link("pages/Sulbar20.py", label="Kelapa Sulawesi Barat 2020")
+st.sidebar.page_link("pages/Sulbar19.py", label="Kelapa Sulawesi Barat 2019")
+st.sidebar.page_link("pages/Sulbar18.py", label="Kelapa Sulawesi Barat 2018")
+st.sidebar.page_link("pages/Polman.py", label="Kelapa Polewali Mandar")
+
 # Membaca dataset dari file Excel
 df = pd.read_excel("kelapaPolman.xlsx")
 x = df.iloc[:, [4, 5]].values
@@ -98,6 +115,11 @@ st.markdown(
     /* Menyembunyikan tombol hamburger di pojok kanan atas */ 
     .css-6qob1r { 
     display: none; 
+    }
+    header {visibility: hidden;}
+    .css-1y4p8pa.e1fqkh3o0 {visibility: hidden;}
+    [data-testid="stSidebarNav"] {
+        display: none;
     }
     </style>
     """,

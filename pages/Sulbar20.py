@@ -8,7 +8,7 @@ from sklearn.preprocessing import StandardScaler
 import folium 
 from streamlit_folium import st_folium
 
-st.title("Kelapa Majene Tahun 2023")
+st.title("Kelapa Sulawesi Barat Tahun 2020")
 
 # Buat menu kustom di sidebar
 st.sidebar.title("Kelapa Sulbar")
@@ -28,7 +28,7 @@ st.sidebar.page_link("pages/Sulbar18.py", label="Kelapa Sulawesi Barat 2018")
 st.sidebar.page_link("pages/Polman.py", label="Kelapa Polewali Mandar")
 
 # Membaca dataset dari file Excel
-df = pd.read_excel("kelapaMajene.xlsx")
+df = pd.read_excel("kelapaKabupaten2020.xlsx")
 x = df.iloc[:, [4, 5]].values
 
 st.header("Isi Dataset")
@@ -55,26 +55,26 @@ scaler = StandardScaler()
 x_scaled = scaler.fit_transform(x)
 
 # Proses K-Means Clustering dengan jumlah cluster 3
-kmeans = KMeans(n_clusters=3, init='k-means++', random_state=42)
+kmeans = KMeans(n_clusters=2, init='k-means++', random_state=42)
 df['Cluster'] = kmeans.fit_predict(x_scaled)
 
 # Mengubah nama kolom untuk lebih rapi
 df.columns = df.columns.str.strip()
 
 # Mapping cluster numerik ke kategori
-cluster_mapping = {2: 'Rendah', 1: 'Sedang', 0: 'Tinggi'}
+cluster_mapping = {0: 'Rendah', 1: 'Tinggi'}
 df['Cluster'] = df['Cluster'].map(cluster_mapping)
 
 # Mapping warna berdasarkan cluster
-cluster_colors = {'Rendah': 'green', 'Sedang': 'blue', 'Tinggi': 'red'}
+cluster_colors = {'Rendah': 'green', 'Tinggi': 'red'}
 
 # Membuat plot scatter
 st.subheader("Plot Clustering")
-fig2, ax2 = plt.subplots(figsize=(12, 6))
-sns.scatterplot(x='Kabupaten', y='PRODUKTIVITAS (Kg/Ha/Thn)', hue='Cluster', palette=cluster_colors, s=150, data=df, ax=ax2)
+fig2, ax2 = plt.subplots(figsize=(15, 6))
+sns.scatterplot(x='Kabupaten', y='PROVITAS', hue='Cluster', palette=cluster_colors, s=150, data=df, ax=ax2)
 ax2.set_title("Hasil Clustering")
-ax2.set_xlabel("Kecamatan")
-ax2.set_ylabel("Produktivitas (Kg/Ha)")
+ax2.set_xlabel("Kabupaten")
+ax2.set_ylabel("Produktivitas")
 st.pyplot(fig2)
 
 st.header("Hasil Cluster")
@@ -82,11 +82,22 @@ st.write(df)
 
 # Menampilkan Peta dengan hasil pengelompokan
 st.subheader("Peta Hasil Pengelompokan")
+def convert_to_float(value):
+    try:
+        return float(value)
+    except (ValueError, TypeError):
+        return None
+
+df['latitude'] = df['latitude'].apply(convert_to_float)
+df['longtitude'] = df['longtitude'].apply(convert_to_float)
+
+# Buang baris yang memiliki nilai NaN
+df = df.dropna(subset=['latitude', 'longtitude'])
 map_loc = folium.Map(location=[df['latitude'].mean(), df['longtitude'].mean()], zoom_start=8)
 for idx, row in df.iterrows():
     folium.Marker(
         location=[row['latitude'], row['longtitude']], 
-        tooltip=f"Kecamatan {row['Kabupaten']} (Cluster: {row['Cluster']})",
+        tooltip=f"Kabupaten {row['Kabupaten']} (Cluster: {row['Cluster']})",
         icon=folium.Icon(color='green' if row['Cluster'] == 'Rendah' else 'blue' if row['Cluster'] == 'Sedang' else 'red')
     ).add_to(map_loc)
 st_folium(map_loc, width=700)
@@ -104,10 +115,12 @@ st.markdown(
     [data-testid="stSidebarContent"] {
     background-color: #020249B9;
     }
-    /* Menyembunyikan header */ 
+     /* Menyembunyikan header */ 
     header.css-1v3fvcr { 
     display: none; 
     } 
+    header {visibility: hidden;}
+    .css-1y4p8pa.e1fqkh3o0 {visibility: hidden;}
     /* Menyembunyikan footer */ 
     footer.css-1544g2n { 
     display: none; 
@@ -119,8 +132,6 @@ st.markdown(
     [data-testid="stSidebarNav"] {
         display: none;
     }
-    header {visibility: hidden;}
-    .css-1y4p8pa.e1fqkh3o0 {visibility: hidden;}
     </style>
     """,
     unsafe_allow_html=True

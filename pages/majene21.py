@@ -8,7 +8,7 @@ from sklearn.preprocessing import StandardScaler
 import folium 
 from streamlit_folium import st_folium
 
-st.title("Kelapa Majene Tahun 2023")
+st.title("Kelapa Majene Tahun 2021")
 
 # Buat menu kustom di sidebar
 st.sidebar.title("Kelapa Sulbar")
@@ -28,7 +28,7 @@ st.sidebar.page_link("pages/Sulbar18.py", label="Kelapa Sulawesi Barat 2018")
 st.sidebar.page_link("pages/Polman.py", label="Kelapa Polewali Mandar")
 
 # Membaca dataset dari file Excel
-df = pd.read_excel("kelapaMajene.xlsx")
+df = pd.read_excel("kelapaMajene2021.xlsx")
 x = df.iloc[:, [4, 5]].values
 
 st.header("Isi Dataset")

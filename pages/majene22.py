@@ -28,7 +28,7 @@ st.sidebar.page_link("pages/Sulbar18.py", label="Kelapa Sulawesi Barat 2018")
 st.sidebar.page_link("pages/Polman.py", label="Kelapa Polewali Mandar")
 
 # Membaca dataset dari file Excel
-df = pd.read_excel("kelapaMajene.xlsx")
+df = pd.read_excel("kelapaMajene2022.xlsx")
 x = df.iloc[:, [4, 5]].values
 
 st.header("Isi Dataset")
@@ -98,6 +98,8 @@ st.markdown(
     body {
         background-color: #020249FF;
     }
+    header {visibility: hidden;}
+    .css-1y4p8pa.e1fqkh3o0 {visibility: hidden;}
     .stApp {
         background-color: #02023EFF;
     }
@@ -119,8 +121,6 @@ st.markdown(
     [data-testid="stSidebarNav"] {
         display: none;
     }
-    header {visibility: hidden;}
-    .css-1y4p8pa.e1fqkh3o0 {visibility: hidden;}
     </style>
     """,
     unsafe_allow_html=True
